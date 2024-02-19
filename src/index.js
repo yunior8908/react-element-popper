@@ -115,7 +115,8 @@ function ElementPopper(
     if (!isPopper) {
       removeTransition();
 
-      popperRef.current.parentNode.style.visibility = "hidden";
+      if (popperRef.current)
+        popperRef.current.parentNode.style.visibility = "hidden";
 
       if (arrowRef.current) arrowRef.current.style.visibility = "hidden";
 
@@ -157,8 +158,8 @@ function ElementPopper(
 
   const node = (
     <>
-      {renderArrow()}
-      {renderPopper()}
+      <RenderArrow />
+      <RenderPopper />
     </>
   );
 
@@ -194,7 +195,7 @@ function ElementPopper(
     if (outerRef) outerRef.current = element;
   }
 
-  function renderArrow() {
+  function RenderArrow() {
     if (!arrow || !isPopper) return null;
 
     let div = <div ref={arrowRef} style={styles.arrow} />;
@@ -209,7 +210,7 @@ function ElementPopper(
     return cloneElement(div, props);
   }
 
-  function renderPopper() {
+  function RenderPopper() {
     return (
       <div
         className={popperShadow ? "ep-popper-shadow" : ""}
